@@ -1,2 +1,2 @@
 # album-api
-# mike dudok - 10263666
+# Mike Dudok - 10263666
