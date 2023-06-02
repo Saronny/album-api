@@ -38,7 +38,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
     - name: Build and push Docker image
       env:
-        ECR_REGISTRY: <your-ecr-registry-url>
+        ECR_REGISTRY: 758824343835.dkr.ecr.us-east-1.amazonaws.com/cnsd/album
       run: |
         docker build -t $ECR_REGISTRY:latest .
         docker push $ECR_REGISTRY:latest
