@@ -40,8 +40,8 @@ jobs:
       env:
         ECR_REGISTRY: 758824343835.dkr.ecr.us-east-1.amazonaws.com/cnsd/album
       run: |
-        docker build -t $ECR_REGISTRY:latest .
-        docker push $ECR_REGISTRY:latest
+        docker build -t $ECR_REGISTRY:${{ github.run_number }} .
+        docker push $ECR_REGISTRY:${{ github.run_number }} 
         
 
 
