@@ -26,22 +26,22 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: us-east-1
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+    - name: Build and push Docker image
+      env:
+        ECR_REGISTRY: <your-ecr-registry-url>
+      run: |
+        docker build -t $ECR_REGISTRY:latest .
+        docker push $ECR_REGISTRY:latest
+        
 
-name: Configure AWS credentials
-  - uses: aws-actions/configure-aws-credentials@v1
-  - with:
-      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-      aws-region: us-east-1
 
-name: Login to Amazon ECR
-  - id: login-ecr
-  - uses: aws-actions/amazon-ecr-login@v1
-
-name: Build and push Docker image
-  - env:
-      ECR_REGISTRY: 758824343835.dkr.ecr.us-east-1.amazonaws.com/cnsd/album"
-  - run: |
-      docker build -t $ECR_REGISTRY:latest .
-      docker push $ECR_REGISTRY:latest
