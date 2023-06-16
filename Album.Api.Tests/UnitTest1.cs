@@ -10,7 +10,7 @@ public class UnitTest1
 
         string greeting = greetingService.GetGreeting("Mike");
 
-        Assert.Equal("Hello Mike", greeting);
+        Assert.Equal($"Hello Mike from {Dns.GetHostName()}", greeting);
     }
 
     [Theory]
